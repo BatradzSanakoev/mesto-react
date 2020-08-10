@@ -80,23 +80,6 @@ function App() {
         <Main onEditProfile={onEditProfile} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} />
         <Footer />
       </div>
-
-
-      <template id="element">
-        <div className="element">
-          <div className="element__container">
-            <img src="./images/del.svg" alt="удалить" className="element__del" />
-            <img className="element__photo" />
-          </div>
-          <div className="element__bottom">
-            <p className="element__name" />
-            <div className="element__likes">
-              <button className="element__like" />
-              <p className="element__like-count" />
-            </div>
-          </div>
-        </div>
-      </template>
     </>
 
   );

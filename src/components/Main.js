@@ -1,5 +1,5 @@
 import React from 'react';
-import api from '../utils/Api';
+import api from '../utils/api';
 import Avaedit from '../images/avaedit.png';
 import Edit from '../images/edit.png';
 import Add from '../images/add.png';
@@ -12,27 +12,28 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
     const [cards, setCards] = React.useState([]);
 
     React.useEffect(() => {
-        api.loadUserInfo()
+
+        let a = api.loadUserInfo()
             .then(result => {
                 setUserAvatar(result.avatar);
                 setUserName(result.name);
                 setUserDescription(result.about);
-            })
-    }, []);
+            });
 
-    React.useEffect(() => {
-        api.loadCards()
-            .then(result => {
-                setCards(
-                    result.map(item => ({
-                        id: item._id,
-                        link: item.link,
-                        name: item.name,
-                        owner: item.owner,
-                        likes: item.likes
-                    }))
-                )
-            })
+        let b = api.loadCards()
+        .then(result => {
+            setCards(
+                result.map(item => ({
+                    id: item._id,
+                    link: item.link,
+                    name: item.name,
+                    owner: item.owner,
+                    likes: item.likes
+                }))
+            )
+        });
+        
+        Promise.all([a,b]);
     }, []);
 
     return (
