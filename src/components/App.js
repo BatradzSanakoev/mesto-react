@@ -67,22 +67,9 @@ function App() {
       </PopupWithForm>
 
       <PopupWithForm name={'delete'} title={'Вы уверены?'} isOpen={isDelPopupOpen} onClose={closeAllPopups} buttonName={'Да'}>
-
       </PopupWithForm>
 
       <ImagePopup cardLink={selectedCard.link} cardName={selectedCard.name} onClose={closeAllPopups} isOpen={selectedCard.isOpen} />
-
-      {/* <section className="pop-up delete-pop">
-        <div className="pop-up__container">
-          <button className="pop-up__close-button"><img src="./images/close.png" alt="закрыть" className="pop-up__close-icon" /></button>
-          <form className="pop-up__form pop-up__form_delete" noValidate>
-            <h2 className="pop-up__form-title">Вы уверены ?</h2>
-            <fieldset className="pop-up__form-input pop-up__form-input_delete-confirm">
-              <button type="submit" className="pop-up__button pop-up__button_delete-confirm" name="default">Да</button>
-            </fieldset>
-          </form>
-        </div>
-      </section> */}
 
       <div className="page">
         <Header />

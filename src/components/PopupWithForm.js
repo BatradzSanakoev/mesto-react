@@ -3,7 +3,7 @@ import Close from '../images/close.png';
 
 function PopupWithForm({name, title, mod, isOpen, onClose, children, buttonName}) {
     return (
-        <section className={`pop-up ${name}-pop ${isOpen ? 'pops-visible' : ''}`}>
+        <section className={`pop-up ${name}-pop ${isOpen && 'pops-visible'}`}>
             <div className="pop-up__container">
                 <button className="pop-up__close-button" onClick={onClose}>
                     <img src={Close} alt="закрыть" className="pop-up__close-icon" />

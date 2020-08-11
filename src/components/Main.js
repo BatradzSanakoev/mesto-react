@@ -13,27 +13,21 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
 
     React.useEffect(() => {
 
-        let a = api.loadUserInfo()
-            .then(result => {
-                setUserAvatar(result.avatar);
-                setUserName(result.name);
-                setUserDescription(result.about);
+        Promise.all([api.loadUserInfo(), api.loadCards()])
+            .then(([userInfo, dataCards]) => {
+                setUserAvatar(userInfo.avatar);
+                setUserName(userInfo.name);
+                setUserDescription(userInfo.description);
+                setCards(
+                    dataCards.map(item => ({
+                        id: item._id,
+                        link: item.link,
+                        name: item.name,
+                        owner: item.owner,
+                        likes: item.likes
+                    }))
+                );
             });
-
-        let b = api.loadCards()
-        .then(result => {
-            setCards(
-                result.map(item => ({
-                    id: item._id,
-                    link: item.link,
-                    name: item.name,
-                    owner: item.owner,
-                    likes: item.likes
-                }))
-            )
-        });
-        
-        Promise.all([a,b]);
     }, []);
 
     return (
