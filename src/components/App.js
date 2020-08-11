@@ -5,7 +5,6 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import '../index.css';
-import { ReactComponent } from '*.svg';
 
 function App() {
 
