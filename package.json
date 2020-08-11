@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Batradz Sanakoev",
-  "description": "mesto-react project (ya.praktikum)", 
+  "description": "mesto-react project (ya.praktikum)",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -40,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/BatradzSanakoev/mesto-react.git"
+    "url": "git+https://github.com/BatradzSanakoev/mesto-react.git"
   },
-  "homepage": "https://batradzsanakoev.github.io/mesto-react"
+  "homepage": "https://batradzsanakoev.github.io/mesto-react#readme"
 }
