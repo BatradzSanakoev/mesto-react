@@ -1,5 +1,3 @@
-//почему то не хочет пушится этот и utils.js файлы с нижним регситром
-
 class Api {
   constructor(options) {
     this._url = options.baseUrl;
