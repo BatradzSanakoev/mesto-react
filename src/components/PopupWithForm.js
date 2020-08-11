@@ -1,7 +1,7 @@
 import React from 'react';
 import Close from '../images/close.png';
 
-function PopupWithForm({name, title, mod, isOpen, onClose, children}) {
+function PopupWithForm({name, title, mod, isOpen, onClose, children, buttonName}) {
     return (
         <section className={`pop-up ${name}-pop ${isOpen ? 'pops-visible' : ''}`}>
             <div className="pop-up__container">
@@ -12,7 +12,7 @@ function PopupWithForm({name, title, mod, isOpen, onClose, children}) {
                     <h2 className="pop-up__form-title">{title}</h2>
                     <fieldset className={`pop-up__form-input pop-up__form-input_${mod}`}>
                         {children}
-                        <button type="submit" className="pop-up__button">Сохранить</button>
+                        <button type="submit" className="pop-up__button">{buttonName}</button>
                     </fieldset>
                 </form>
             </div>
