@@ -4,29 +4,32 @@ import Avaedit from '../images/avaedit.png';
 import Edit from '../images/edit.png';
 import Add from '../images/add.png';
 import Card from './Card';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-    const [userName, setUserName] = React.useState();
-    const [userDescription, setUserDescription] = React.useState();
-    const [userAvatar, setUserAvatar] = React.useState();
     const [cards, setCards] = React.useState([]);
+    const context = React.useContext(CurrentUserContext);
+
+    function handleCardLike(card) {
+        const isLiked = card.likes.some(i => i._id === context._id);
+        api.changeLikeCardStatus(card._id, !isLiked)
+            .then(newCard => {
+                const newCards = cards.map(c => c._id === card._id ? newCard : c);
+                setCards(newCards);
+            });
+    }
+
+    function handleCardDelete(card) {
+        api.delCard(card._id)
+        .then(() => {
+            setCards(cards.filter(c => c !== card));
+        })
+    }
 
     React.useEffect(() => {
-
-        Promise.all([api.loadUserInfo(), api.loadCards()])
-            .then(([userInfo, dataCards]) => {
-                setUserAvatar(userInfo.avatar);
-                setUserName(userInfo.name);
-                setUserDescription(userInfo.description);
-                setCards(
-                    dataCards.map(item => ({
-                        id: item._id,
-                        link: item.link,
-                        name: item.name,
-                        owner: item.owner,
-                        likes: item.likes
-                    }))
-                );
+        api.loadCards()
+            .then(cards => {
+                setCards(cards);
             });
     }, []);
 
@@ -35,19 +38,19 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             <section className="profile">
                 <div className="profile__edit-part">
                     <div className="profile__avatar-column">
-                        <img alt="аватар" className="profile__avatar" src={userAvatar} />
+                        <img alt="аватар" className="profile__avatar" src={context.avatar} />
                         <a className="profile__avatar-overlay" onClick={onEditAvatar}>
                             <img src={Avaedit} alt="icon" className="profile__avatar-icon" />
                         </a>
                     </div>
                     <div className="profile__text">
                         <div className="profile__edit-row">
-                            <h1 className="profile__name">{userName}</h1>
+                            <h1 className="profile__name">{context.name}</h1>
                             <button className="profile__edit-button" onClick={onEditProfile}>
                                 <img src={Edit} alt="редактировать" className="profile__edit-icon" />
                             </button>
                         </div>
-                        <p className="profile__description">{userDescription}</p>
+                        <p className="profile__description">{context.about}</p>
                     </div>
                 </div>
                 <div className="profile__add-part">
@@ -57,7 +60,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                 </div>
             </section>
             <section className="elements">
-                {cards.map(({ id, ...props }) => <Card key={id} {...props} onCardClick={onCardClick} />)}
+                {cards.map(({ _id, ...props }) => <Card key={_id} _id={_id} {...props} onCardClick={onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />)}
             </section>
         </main>
     )

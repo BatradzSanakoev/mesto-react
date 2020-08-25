@@ -107,24 +107,9 @@ class Api {
       .catch(err => console.log(`Error ${err}`));
   }
 
-  likeCard(cardId) {
+  changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._url}/cards/likes/${cardId}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._authorization,
-        'Content-type': this._contentType
-      }
-    })
-      .then(result => {
-        if (result.ok) return result.json();
-        else return Promise.reject(result.status);
-      })
-      .catch(err => console.log(`Error ${err}`));
-  }
-
-  unlikeCard(cardId) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
-      method: 'DELETE',
+      method: isLiked ? 'PUT' : 'DELETE',
       headers: {
         authorization: this._authorization,
         'Content-type': this._contentType
