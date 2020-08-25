@@ -2,8 +2,8 @@ import React from 'react';
 import Delete from '../images/del.svg';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
-function Card({ _id, link, name, likes, owner, onCardClick, onCardLike, onCardDelete }) {    
-    const card = {_id: _id, link: link, name: name, owner: owner, likes: likes };
+function Card({ _id, link, name, likes, owner, onCardClick, onCardLike, onCardDelete }) {
+    const card = { _id: _id, link: link, name: name, owner: owner, likes: likes };
     const context = React.useContext(CurrentUserContext);
     const isOwn = owner._id === context._id;
     const isLiked = likes.some(i => i._id === context._id);
@@ -23,10 +23,14 @@ function Card({ _id, link, name, likes, owner, onCardClick, onCardLike, onCardDe
         onCardLike(card);
     }
 
+    function handleDeleteClick() {
+        onCardDelete(card);
+    }
+
     return (
         <div className="element">
             <div className="element__container">
-                <img src={Delete} alt="удалить" className={cardDeleteButtonClassName} onClick={onCardDelete} />
+                <img src={Delete} alt="удалить" className={cardDeleteButtonClassName} onClick={handleDeleteClick } />
                 <img className="element__photo" src={link} alt={name} onClick={handleClick} />
             </div>
             <div className="element__bottom">
