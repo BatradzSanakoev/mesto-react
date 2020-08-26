@@ -1,8 +1,8 @@
 {
   "name": "mesto-react",
-  "homepage": "http://BatradzSanakoev.github.io/mesto-react",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://BatradzSanakoev.github.io/mesto-react",
   "author": "Batradz Sanakoev",
   "description": "mesto-react project (ya.praktikum)",
   "dependencies": {
