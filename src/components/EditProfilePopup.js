@@ -12,11 +12,14 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         setDescription(context.about);
     }, [context]);
 
-    function handleChange(e) {
+    function handleNameChange(e) {
         const target = e.target;
-        const targetName = e.target.name;
-        
-        targetName === 'name' ? setName(target.value) : setDescription(target.value); 
+        setName(target.value);
+    }
+
+    function handleDescriptionChange(e) {
+        const target = e.target;
+        setDescription(target.value);
     }
 
     function handleSubmit(e) {
@@ -26,9 +29,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
     return (
         <PopupWithForm name="edit" title="Редактировать профиль" isOpen={isOpen} onClose={onClose} buttonName="Сохранить" onSubmit={handleSubmit} >
-            <input type="text" name="name" value={name || ''} className="pop-up__input pop-up__input_edit-name" id="edit-name-input" placeholder="Введите имя" required minLength={2} maxLength={40} pattern="[A-Za-zА-Яа-яЁё\s\-]{1,}" onChange={handleChange} />
+            <input type="text" name="name" value={name || ''} className="pop-up__input pop-up__input_edit-name" id="edit-name-input" placeholder="Введите имя" required minLength={2} maxLength={40} pattern="[A-Za-zА-Яа-яЁё\s\-]{1,}" onChange={handleNameChange} />
             <span className="pop-up__form-error" id="edit-name-input-error" />
-            <input type="text" name="description" value={description || ''} className="pop-up__input pop-up__input_edit-desc" id="edit-desc-input" placeholder="Введите описание" required minLength={2} maxLength={200} onChange={handleChange} />
+            <input type="text" name="description" value={description || ''} className="pop-up__input pop-up__input_edit-desc" id="edit-desc-input" placeholder="Введите описание" required minLength={2} maxLength={200} onChange={handleDescriptionChange} />
             <span className="pop-up__form-error" id="edit-desc-input-error" />
         </PopupWithForm>
     )

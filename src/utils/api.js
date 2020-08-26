@@ -48,8 +48,7 @@ class Api {
       .then(result => {
         if (result.ok) return result.json();
         else return Promise.reject(result.status);
-      })
-      .catch(err => console.log(`Error ${err}`));
+      });
   }
 
   editUserAvatar({ url }) {
@@ -66,8 +65,7 @@ class Api {
       .then(result => {
         if (result.ok) return result.json();
         else return Promise.reject(result.status);
-      })
-      .catch(err => console.log(`Error ${err}`));
+      });
   }
 
   addCard({
@@ -88,8 +86,7 @@ class Api {
       .then(result => {
         if (result.ok) return result.json();
         else return Promise.reject(result.status);
-      })
-      .catch(err => console.log(`Error ${err}`));
+      });
   }
 
   delCard(cardId) {

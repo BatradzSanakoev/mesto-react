@@ -21,11 +21,13 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
+  //Вызов эффекта загрузки данных пользователя
   React.useEffect(() => {
     api.loadUserInfo()
       .then(result => setCurrentUser(result));
   }, []);
 
+  //Вызов эффекта загрузки карточек на страницу
   React.useEffect(() => {
     api.loadCards()
       .then(cards => {
@@ -33,6 +35,7 @@ function App() {
       });
   }, []);
 
+  //Метод осуществления лайка для карточки
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.changeLikeCardStatus(card._id, !isLiked)
@@ -42,31 +45,37 @@ function App() {
       });
   }
 
+  //Метод удаления карточки
   function handleCardDelete(card) {
     api.delCard(card._id)
       .then(() => {
         console.log(card._id);
         setCards(cards.filter(c => c._id !== card._id));
       })
-      .catch ((err) => console.log(`Ошибка при удалении карточки: ${err}`));
+      .catch((err) => console.log(`Ошибка при удалении карточки: ${err}`));
   }
 
+  //Обработчик состояния попапа редактирования
   function onEditProfile() {
     setIsEditProfilePopupOpen(true);
   }
 
+  //Обработчик состояния попапа добавления
   function onAddPlace() {
     setIsAddPlacePopupOpen(true);
   }
 
+  //Обработчик состояния попапа смены аватары
   function onEditAvatar() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  //Пока неиспользуемый обработчик состояния попапа удаления
   function onDelCard() {
     setIsDelPopupOpen(true);
   }
 
+  //Метод закрытия всех попапов и открытых карточек
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
@@ -74,6 +83,7 @@ function App() {
     setSelectedCard({ isOpen: false });
   }
 
+  //Обработчик состояния попапа открытого изображения
   function handleCardClick(card) {
     setSelectedCard({
       isOpen: true,
@@ -82,23 +92,29 @@ function App() {
     });
   }
 
+  //Метод обновления данных пользователя
   function handleUpdateUser(name, description) {
     api.editUserProfile(name, description)
-      .then(result => setCurrentUser(result));
+      .then(result => setCurrentUser(result))
+      .catch(err => console.log(`Error ${err} in editUserAvatar`));
 
     closeAllPopups();
   }
 
+  //Метод обновления аватара
   function handleUpdateAvatar(avatar) {
     api.editUserAvatar({ url: avatar })
-      .then(result => setCurrentUser(result));
+      .then(result => setCurrentUser(result))
+      .catch(err => console.log(`Error ${err} in editUserAvatar`));
 
     closeAllPopups();
   }
 
+  //Метод обработки сабмита попапа добавления
   function handleAddPlaceSubmit(name, link) {
     api.addCard({ name: name, link: link })
-      .then(newCard => setCards([...cards, newCard]));
+      .then(newCard => setCards([...cards, newCard]))
+      .catch(err => console.log(`Error ${err} in addCard`));
 
     closeAllPopups();
   }
